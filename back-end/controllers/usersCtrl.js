@@ -1,6 +1,7 @@
 const models = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const jwtUtils = require("../middleware/jwtUtils");
 require('dotenv').config({ path: './config/.env' });
 const saltRounds = 10;
 const validator = require('validator');
@@ -93,11 +94,22 @@ module.exports = {
     },
     getAllUsers: async (req, res) => {
         await models.Users.findAll()
-        .then((users) => {
-            return res.status(200).json({users: users})
+            .then((users) => {
+                return res.status(200).json({ users: users })
+            })
+            .catch((e) => {
+                return res.status(400).json({ message: "une erreur est survenue." })
+            })
+    },
+    getUserProfile: async (req, res) => {
+        const authorization = req.headers['authorization']
+        const userId = jwtUtils.getUser(authorization);
+        await models.Users.findOne({where: {id: userId}})
+        .then((user) => {
+            return res.status(200).json({ user: user });
+        }).catch((e) => {
+            return res.status(400).json({ message: "Utilisateur pas trouvé" });
         })
-        .catch((e) => {
-            return res.status(400).json({message: "une erreur est survenue."})
-        })
+
     }
 };
