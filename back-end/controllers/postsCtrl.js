@@ -48,15 +48,45 @@ module.exports = {
         })
     },
 
-    delete: (req, res) => {
-
+    delete: async (req, res) => {
+        const id = req.params.id;
+        
+        const post = await models.Posts.findOne({
+            attributes: ['id', 'title', 'description', 'pictures', 'users_id'],
+            where: { id }
+        });
+        if (post) {
+            await models.Posts.destroy({
+                where: { id: id }
+            }).then(() => {
+                return res.status(200).json({ message: "post supprimé" });
+            }).catch((e) => {
+                return res.status(400).json({ message: "erreur lors de la suppression" });
+            })
+        }
     },
-
-    getAllPosts: (req, res) => {
-
+    getAllPosts: async (req, res) => {
+        await models.Posts.findAll({ 
+            attributes: ['id', 'title', 'description', 'pictures', 'users_id'],
+        })
+        .then((posts) => {
+            return res.status(200).json({ posts: posts })
+        })
+        .catch((e) => {
+            return res.status(400).json({ message: "une erreur est survenue." })
+        })
     },
-
-    getOnePost: (req, res) => {
+    getOnePost: async (req, res) => {
+        const postId = req.params.id
+        await models.Posts.findOne({
+            where: {id: postId},
+            attributes: ['id', 'title', 'description', 'pictures', 'users_id']
+        })
+        .then((post) => {
+            return res.status(200).json({ post: post });
+        }).catch((e) => {
+            return res.status(400).json({ message: "Post pas trouvé" });
+        })
 
     }
 }
