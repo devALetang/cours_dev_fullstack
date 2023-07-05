@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
-import { registerUser } from '../api/register';
+import { registerUser } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
