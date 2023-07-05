@@ -32,3 +32,18 @@ export const loginUser = async (data) => {
         console.log(e.response.data.error);
      }) 
 }
+
+export const getUserInfo = async (token) => {
+   return await axios({
+      method: 'get',
+      url: `${env.API_URL}/user/me`,
+      headers: {
+         'Authorization': `Bearer ${token}`
+      }
+   })
+   .then((res) => {
+      return res.data.user
+   })
+   .catch((e) => {
+      console.log(e.response.data.error);
+   }) }

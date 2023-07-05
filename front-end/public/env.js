@@ -35,7 +35,7 @@ window.env = {
   "__CFBundleIdentifier": "com.microsoft.VSCode",
   "npm_command": "start",
   "PWD": "/Users/joaquim/Documents/projects/cours_dev_fullstack/front-end",
-  "VSCODE_NONCE": "a908aed1-1af7-4a3d-9fe2-4c44e7bcbff6",
+  "VSCODE_NONCE": "20de8a84-8c12-48f1-a5e7-6906cd6f8ff9",
   "npm_lifecycle_event": "start",
   "EDITOR": "vi",
   "P9K_SSH": "0",

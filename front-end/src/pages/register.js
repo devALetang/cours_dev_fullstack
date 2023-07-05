@@ -100,7 +100,7 @@ const Register = () => {
                       </Form.Group>
                       <Form.Group
                         className="mb-3"
-                        controlId="formBasicPassword"
+                        controlId="formBasicConfirmPassword"
                       >
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
@@ -126,7 +126,7 @@ const Register = () => {
                     <div className="mt-3">
                       <p className="mb-0 text-center">
                         Already have an account?{' '}
-                        <a href="{''}" className="text-primary fw-bold">
+                        <a href='/login' className="text-primary fw-bold">
                           Sign In
                         </a>
                       </p>

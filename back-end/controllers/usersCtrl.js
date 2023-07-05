@@ -104,6 +104,11 @@ module.exports = {
     getUserProfile: async (req, res) => {
         const authorization = req.headers['authorization']
         const userId = jwtUtils.getUser(authorization);
+
+        if(userId == null) {
+            return res.status(400).json({ message: "Utilisateur pas authorize" });
+        }
+
         await models.Users.findOne({where: {id: userId}})
         .then((user) => {
             return res.status(200).json({ user: user });

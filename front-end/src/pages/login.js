@@ -18,9 +18,7 @@ const Login = () => {
 
     await loginUser(data)
     .then((token) => {
-      if (token != null ) {
-        navigate('/home');
-      }
+      navigate('/home');
     })
     .catch((e) => {
       console.log(e);
@@ -83,7 +81,7 @@ const Login = () => {
                     <div className="mt-3">
                       <p className="mb-0 text-center">
                         Don't have an account?{' '}
-                        <a href="{''}" className="text-primary fw-bold">
+                        <a href='/register' className="text-primary fw-bold">
                           Sign up
                         </a>
                       </p>
