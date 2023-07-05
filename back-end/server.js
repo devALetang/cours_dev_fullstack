@@ -4,9 +4,13 @@ require('dotenv').config({ path: './config/.env' });
 const routesUsers = require('./routes/usersRoutes');
 const routesPosts = require('./routes/postsRoutes');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
+server.use(cors({
+    origin: 'http://localhost:3001'
+}))
 
 // routes
 server.use('/user', routesUsers);
