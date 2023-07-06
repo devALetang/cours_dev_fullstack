@@ -7,7 +7,7 @@ const DeletePostModal = ({ handleClose, show, postId, posts, setPosts }) => {
     const handleDeletePost = () => {
         deletePost(postId)  
         .then(() => {
-            const index = posts.findIndex(post => post.id == postId)
+            const index = posts.findIndex(post => post.id === postId)
             const updatedPosts = [...posts.slice(0, index), ...posts.slice(index + 1)]
             setPosts(updatedPosts);
             handleClose();

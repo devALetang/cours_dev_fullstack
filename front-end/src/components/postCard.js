@@ -30,7 +30,7 @@ const PostCard = ({ postData, setPosts, posts }) => {
                     <AiFillDelete onClick={handleShowDeleteModal}/>
                 </Button>
             </div>
-            <UpdatePostModal handleClose={handleCloseUpdateModal} show={showUpdateModal} post={postData} setPosts={setPosts} posts={posts}/>
+            <UpdatePostModal handleClose={handleCloseUpdateModal} show={showUpdateModal} postToUpdate={postData} setPosts={setPosts} posts={posts}/>
             <DeletePostModal handleClose={handleCloseDeleteModal} show={showDeleteModal} postId={postData.id} setPosts={setPosts} posts={posts}/>
         </div>
     );

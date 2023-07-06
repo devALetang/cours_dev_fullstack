@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { loginUser } from '../api/auth';
 import { Card, Col, Container, Row, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../AuthContext/UserContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { saveUser } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -17,7 +19,8 @@ const Login = () => {
     }
 
     await loginUser(data)
-    .then((token) => {
+    .then( async () => {
+      await saveUser()
       navigate('/home');
     })
     .catch((e) => {

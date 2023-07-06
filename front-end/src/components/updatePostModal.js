@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { updatePost } from '../api/post';
 
-const UpdatePostModal = ({ setPosts, posts, handleClose, post, show }) => {
+const UpdatePostModal = ({ setPosts, posts, handleClose, postToUpdate, show }) => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
 
@@ -14,10 +14,10 @@ const UpdatePostModal = ({ setPosts, posts, handleClose, post, show }) => {
           "description": newDescription
         }
     
-        await updatePost(data, post.id)
+        await updatePost(data, postToUpdate.id)
         .then((newPost) => {   
 
-            const index = posts.findIndex(post => post.id == post.id)
+            const index = posts.findIndex(post => post.id === postToUpdate.id)
             const updatedPosts = [...posts.slice(0, index), newPost, ...posts.slice(index + 1)]
 
             setPosts(updatedPosts);
@@ -51,7 +51,7 @@ const UpdatePostModal = ({ setPosts, posts, handleClose, post, show }) => {
                     <Form.Control
                         type="text"
                         onChange={(e) => setNewTitle(e.target.value)}
-                        placeholder={post.title}
+                        placeholder={postToUpdate.title}
                         value={newTitle}
                     />
                     </Form.Group>
@@ -64,7 +64,7 @@ const UpdatePostModal = ({ setPosts, posts, handleClose, post, show }) => {
                     <Form.Control
                         onChange={(e) => setNewDescription(e.target.value)}
                         type="text"
-                        placeholder={post.description}
+                        placeholder={postToUpdate.description}
                         value={newDescription}
                     />
                     </Form.Group>
