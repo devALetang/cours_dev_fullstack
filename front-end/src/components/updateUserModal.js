@@ -68,7 +68,7 @@ const UpdateUserModal = ({ handleClose, userToUpdate, show }) => {
                     </Form.Group>
                 </Form>
             </Modal.Body>
-            <Modal.Footer className='d-flex jusitfy-content-between'>
+            <Modal.Footer className='d-flex justify-content-between'>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>

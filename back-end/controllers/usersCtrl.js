@@ -85,7 +85,6 @@ module.exports = {
             await models.Users.destroy({
                 where: { id: id }
             }).then(() => {
-                console.log('slndlksand');
                 return res.status(200).json({ message: "utilisateur supprimé" });
             }).catch((e) => {
                 return res.status(400).json({ message: "erreur lors de la suppression" });
@@ -103,7 +102,7 @@ module.exports = {
     },
     getUserProfile: async (req, res) => {
         const authorization = req.headers['authorization']
-        const userId = jwtUtils.getUser(authorization);
+        const userId = jwtUtils.getUser(authorization); 
 
         if(userId == null) {
             return res.status(400).json({ message: "Utilisateur pas authorize" });
