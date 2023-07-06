@@ -48,4 +48,32 @@ export const getUserInfo = async (token) => {
    })
    .catch((e) => {
       console.log(e.response.data.error);
-   }) }
+   })
+}
+
+export const deleteUser = async (userId) => {
+   await axios({
+      method: 'delete',
+      url: `${env.API_URL}/user/${userId}`,
+   })
+   .then((res) => {
+      console.log(res);
+   })
+   .catch((e) => {
+      console.log(e);
+   })
+}
+
+export const updateUser = async (userId, data) => {
+   await axios({
+      method: 'put',
+      url: `${env.API_URL}/user/${userId}`,
+      data: data
+   })
+   .then((res) => {
+      console.log(res);
+   })
+   .catch((e) => {
+      console.log(e);
+   })
+}
