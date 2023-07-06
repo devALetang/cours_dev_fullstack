@@ -19,7 +19,7 @@ module.exports = {
         })
 
         if(newPost) {
-            return res.status(200).json({message: 'Posts a été crée.'});
+            return res.status(200).json({message: 'Posts a été crée.', post: newPost});
         } else {
             return res.status(400).json({message: 'Erreur'});
         }
@@ -41,8 +41,8 @@ module.exports = {
             title: title ? title : post.title,
             description: description ? description : post.description,
             pictures: pictures ? pictures : 'test.png'
-        }).then(() => {
-            return res.status(200).json({ message: "modification effectué" });
+        }).then((post) => {
+            return res.status(200).json({ message: "modification effectué", post: post });
         }).catch((e) => {
             return res.status(400).json({ message: "erreur lors de la modification" });
         })
@@ -55,6 +55,7 @@ module.exports = {
             attributes: ['id', 'title', 'description', 'pictures', 'users_id'],
             where: { id }
         });
+
         if (post) {
             await models.Posts.destroy({
                 where: { id: id }

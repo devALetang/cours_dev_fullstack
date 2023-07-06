@@ -29,4 +29,31 @@ export const getPosts = async () => {
     .catch((e) => {
        console.log(e);
     })
- }
+}
+
+export const deletePost = async (postId) => {
+   return await axios({
+      method: 'delete',
+      url: `${env.API_URL}/post/${postId}`
+   })
+   .then((res) => {
+      console.log(res);
+   })
+   .catch((e) => {
+      console.log(e);
+   })
+}
+
+export const updatePost = async (data, postId) => {
+   return await axios({
+      method: 'put',
+      url: `${env.API_URL}/post/${postId}`,
+      data: data
+   })
+   .then((res) => {
+      return res.data.post;
+   })
+   .catch((e) => {
+      console.log(e);
+   })
+}
