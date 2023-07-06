@@ -17,16 +17,16 @@ const App = () => {
     if (token) {
       saveUser();
     }
-  }, [saveUser, token])
+  }, [])
 
   return (
     <>
-      <CustomNavbar/>
       <BrowserRouter>
+        <CustomNavbar/>
         <Routes>
           <Route path='/register' element={token ? <Home/> : <Register/>}/>
           <Route path='/login' element={token ? <Home/> : <Login/>}/>
-          <Route path='/home' element={<Home/>}/>
+          <Route path='/' element={<Home/>}/>
           <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </BrowserRouter>

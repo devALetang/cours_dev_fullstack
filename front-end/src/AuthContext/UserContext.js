@@ -8,6 +8,7 @@ const UserProvider = ({ children }) => {
 
     const saveUser = async () => {
         const token = localStorage.getItem('token');
+
         await getUserInfo(token)
         .then((data) => {
             setUser(data);

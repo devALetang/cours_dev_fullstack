@@ -2,7 +2,7 @@ import axios from 'axios';
 import env from 'react-dotenv'
 
 export const createPost = async (data, token) => {
-   await axios({
+   return await axios({
       method: 'post',
       url: `${env.API_URL}/post/create`,
       data: data,
@@ -11,7 +11,7 @@ export const createPost = async (data, token) => {
       }
    })
    .then((res) => {
-      console.log(res);
+      return res.data.post
    })
    .catch((e) => {
       console.log(e);

@@ -15,14 +15,13 @@ const CreatePost = ({ setPosts, posts }) => {
       event.preventDefault();
   
       const data = {
-        "id": new Date().toISOString(),
         "title": title,
         "description": description
       }
   
       await createPost(data, token)
-      .then(() => {
-        setPosts([...posts, data])
+      .then((post) => {
+        setPosts([...posts, post])
         handleClose();
         setDescription('');
         setTitle('');

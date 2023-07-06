@@ -19,9 +19,11 @@ const Login = () => {
     }
 
     await loginUser(data)
-    .then( async () => {
-      await saveUser()
-      navigate('/home');
+    .then( async (token) => {
+      if(token) {
+        await saveUser()
+        navigate('/');
+      }
     })
     .catch((e) => {
       console.log(e);

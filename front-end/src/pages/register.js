@@ -25,7 +25,7 @@ const Register = () => {
       alert('Password not equal');
     } else {
       await registerUser(data)
-      .then(() => {
+      .then((data) => {
         navigate('/login')
       })
       .catch((e) => {
