@@ -1,33 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import './App.css';
-import Register from './pages/register';
-import Login from './pages/login';
-import Home from './pages/home';
-import Profile from './pages/profile';
-import CustomNavbar from './components/navbar';
-import { UserContext } from './AuthContext/UserContext';
+import AdminPage from './AdminPage';
+import RoutesApp from './RoutesApp';
+import env from 'react-dotenv';
 
 const App = () => {
-  const { saveUser } = useContext(UserContext);
-  const token = localStorage.getItem('token');
-
-  useEffect(() => {
-    if (token) {
-      saveUser();
-    }
-  }, [])
-
   return (
     <>
       <BrowserRouter>
-        <CustomNavbar/>
         <Routes>
-          <Route path='/register' element={token ? <Home/> : <Register/>}/>
-          <Route path='/login' element={token ? <Home/> : <Login/>}/>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/*' element={<RoutesApp/>}/>
+          <Route path='/admin/*' element={<AdminPage/>}/>
         </Routes>
       </BrowserRouter>
     </>

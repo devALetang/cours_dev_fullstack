@@ -28,7 +28,8 @@ module.exports = {
                     nom: nom,
                     prenom: prenom,
                     password: hash,
-                    email: email
+                    email: email,
+                    is_admin: 0
                 })
                 if (newUser) {
                     return res.status(200).json({ message: "User crée." })
@@ -49,7 +50,7 @@ module.exports = {
         if (user) {
             const password_valid = await bcrypt.compare(password, user.password);
             if (password_valid) {
-                token = jwt.sign({ "id": user.id, "email": user.email, "prenom": user.prenom, "nom": user.nom }, process.env.SECRET);
+                token = jwt.sign({ "id": user.id, "email": user.email, "prenom": user.prenom, "nom": user.nom, "is_admin": user.is_admin }, process.env.SECRET);
                 return res.status(200).json({ token: token });
             } else {
                 return res.status(400).json({ error: "Password Incorrect" });

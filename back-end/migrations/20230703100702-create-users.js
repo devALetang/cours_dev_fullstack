@@ -21,6 +21,9 @@ module.exports = {
       password: {
         type: Sequelize.TEXT
       },
+      is_admin: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
