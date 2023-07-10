@@ -7,8 +7,7 @@ import {
   EmailField,
   DeleteButton,
   Filter,
-  SearchInput,
-  SimpleList
+  SearchInput
 } from 'react-admin';
 
 const UserFilter = props => (

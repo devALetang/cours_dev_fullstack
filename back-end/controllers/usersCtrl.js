@@ -29,7 +29,7 @@ module.exports = {
                     prenom: prenom,
                     password: hash,
                     email: email,
-                    is_admin: 0
+                    is_admin: 1
                 })
                 if (newUser) {
                     return res.status(200).json({ message: "User crée." })
@@ -105,7 +105,7 @@ module.exports = {
         const authorization = req.headers['authorization']
         const userId = jwtUtils.getUser(authorization); 
 
-        if(userId == null) {
+        if(userId == null || user == -1) {
             return res.status(400).json({ message: "Utilisateur pas authorize" });
         }
 

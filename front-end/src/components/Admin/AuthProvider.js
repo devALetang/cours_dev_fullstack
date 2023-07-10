@@ -20,21 +20,22 @@ const AuthProvider = {
 
     checkAuth: async () => {
         const token = localStorage.getItem('adminToken');
-        await axios({
-            method: "GET",
-            url: `http://localhost:3000/user/me`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then((res) => {
-            console.log(res.data);
-            if(res.data.user.is_admin === true) return Promise.resolve();
-            else return Promise.reject();
-        })
-        .catch((e) => {
-            console.log(e);
-        })
+        if(token != null) {
+            await axios({
+                method: "GET",
+                url: `http://localhost:3000/user/me`,
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then((res) => {
+                if(res.data.user != null && res.data.user.is_admin === true) return Promise.resolve();
+                else return Promise.reject();
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+        }
     },
 
     checkError:  (error) => {
