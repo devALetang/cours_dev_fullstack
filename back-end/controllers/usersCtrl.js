@@ -105,7 +105,7 @@ module.exports = {
         const authorization = req.headers['authorization']
         const userId = jwtUtils.getUser(authorization); 
 
-        if(userId == null || user == -1) {
+        if(userId == null || userId == -1) {
             return res.status(400).json({ message: "Utilisateur pas authorize" });
         }
 
