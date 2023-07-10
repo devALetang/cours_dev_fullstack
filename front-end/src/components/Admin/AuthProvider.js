@@ -8,9 +8,14 @@ const AuthProvider = {
             data: {email, password}
         })
         .then( async (res) => {
-            localStorage.setItem('adminToken', res.data.token)
+            localStorage.setItem('token', res.data.token)
             await AuthProvider.checkAuth(res.data.token)
-            .then(() => Promise.resolve())
+            .then(() => {
+                return Promise.resolve();
+            })
+            .then(() => {
+                window.location.replace('/admin/users')
+            })
             .catch(() => Promise.reject())
         })
         .catch((e) => {
@@ -18,24 +23,27 @@ const AuthProvider = {
         })
     },
 
+    logout: () => {
+        localStorage.removeItem('token');
+        return Promise.resolve();
+    },
+
     checkAuth: async () => {
-        const token = localStorage.getItem('adminToken');
-        if(token != null) {
-            await axios({
-                method: "GET",
-                url: `http://localhost:3000/user/me`,
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then((res) => {
-                if(res.data.user != null && res.data.user.is_admin === true) return Promise.resolve();
-                else return Promise.reject();
-            })
-            .catch((e) => {
-                console.log(e);
-            })
-        }
+        const token = localStorage.getItem('token');
+        await axios({
+            method: "GET",
+            url: `http://localhost:3000/user/me`,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then((res) => {
+            if(res.data.user != null && res.data.user.is_admin === true) return Promise.resolve();
+            else return Promise.reject();
+        })
+        .catch((e) => {
+            return Promise.reject();
+        })
     },
 
     checkError:  (error) => {

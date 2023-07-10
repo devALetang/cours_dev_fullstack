@@ -29,7 +29,7 @@ module.exports = {
                     prenom: prenom,
                     password: hash,
                     email: email,
-                    is_admin: 1
+                    is_admin: 0
                 })
                 if (newUser) {
                     return res.status(200).json({ message: "User crée." })
