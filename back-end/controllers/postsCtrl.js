@@ -6,6 +6,7 @@ module.exports = {
         const {title, description} = req.body;
         const authorization = req.headers['authorization']
         const userId = jwtUtils.getUser(authorization);
+        const image = req.file;
 
         if (title == "" || description == "") {
             return res.status(500).json({ message: "Veuillez remplir tous les champs." });
@@ -14,7 +15,7 @@ module.exports = {
         const newPost = await models.Posts.create({
             title: title,
             description: description,
-            pictures: 'test.png',
+            pictures: image ? image.filename : 'test.png',
             users_id: userId
         })
 
@@ -27,9 +28,10 @@ module.exports = {
 
     update: async (req, res) => {
         const id = req.params.id;
-        const { title, description, pictures } = req.body;
+        const { title, description } = req.body;
+        const image = req.file;
 
-        if (title == "" || description == "") {
+        if (title === "" && description === "" && image === null) {
             return res.status(500).json({ message: "Veuillez remplir tous les champs." });
         }
 
@@ -37,10 +39,11 @@ module.exports = {
             attributes: ['id', 'title', 'description', 'pictures', 'users_id'],
             where: { id }
         });
+
         await post.update({
             title: title ? title : post.title,
             description: description ? description : post.description,
-            pictures: pictures ? pictures : 'test.png'
+            pictures: image ? image.filename : post.pictures
         }).then((post) => {
             return res.status(200).json({ message: "modification effectué", post: post });
         }).catch((e) => {
