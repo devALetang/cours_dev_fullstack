@@ -6,6 +6,7 @@ const CreatePost = ({ setPosts, posts }) => {
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [image, setImage] = useState(null);
     const token = localStorage.getItem('token');
 
     const handleClose = () => setShow(false);
@@ -13,18 +14,19 @@ const CreatePost = ({ setPosts, posts }) => {
   
     const handleCreatePost = async (event) => {
       event.preventDefault();
+      let formData = new FormData();
   
-      const data = {
-        "title": title,
-        "description": description
-      }
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('image', image);
   
-      await createPost(data, token)
+      await createPost(formData, token)
       .then((post) => {
         setPosts([...posts, post])
         handleClose();
         setDescription('');
         setTitle('');
+        setImage(null);
       })
       .catch((e) => {
         console.log(e);
@@ -77,6 +79,15 @@ const CreatePost = ({ setPosts, posts }) => {
                                 placeholder="Description"
                                 value={description}
                             />
+                            </Form.Group>
+                            <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Image</Form.Label>
+                                <Form.Control
+                                    type="file"
+                                    onChange={(e) => {
+                                        setImage(e.target.files[0])
+                                    }}
+                                />
                             </Form.Group>
                         </Form>
                     </Modal.Body>

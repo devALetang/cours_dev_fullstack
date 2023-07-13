@@ -12,7 +12,7 @@ const path = require('path');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cors({
-    origin: 'http://localhost:3001'
+    origin: '*'
 }))
 server.use('/public', express.static(path.join(__dirname, '/public')))
 

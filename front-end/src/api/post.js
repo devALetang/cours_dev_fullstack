@@ -2,11 +2,13 @@ import axios from 'axios';
 import env from 'react-dotenv'
 
 export const createPost = async (data, token) => {
+   console.log(data);
    return await axios({
       method: 'post',
       url: `${env.API_URL}/post/create`,
       data: data,
       headers: {
+         'Content-Type': "multipart/form-data",
         'Authorization': `Bearer ${token}`
       }
    })
@@ -48,7 +50,10 @@ export const updatePost = async (data, postId) => {
    return await axios({
       method: 'put',
       url: `${env.API_URL}/post/${postId}`,
-      data: data
+      data: data,
+      headers: {
+         'Content-Type': 'multipart/form-data'
+      }
    })
    .then((res) => {
       return res.data.post;

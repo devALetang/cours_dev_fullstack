@@ -5,6 +5,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import DeletePostModal from './deletePostModal';
 import UpdatePostModal from './updatePostModal';
 import { UserContext } from '../AuthContext/UserContext';
+import env from 'react-dotenv';
 
 const PostCard = ({ postData, setPosts, posts }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -21,6 +22,13 @@ const PostCard = ({ postData, setPosts, posts }) => {
         <div className='d-flex align-items-center'>
             <Card className='m-4 w-50'>
                 <Card.Title>{postData.title}</Card.Title>
+                {postData.pictures !== null && postData.pictures !== 'test.png' ?
+                    <Card.Img
+                        variant="top" 
+                        src={`${env.API_URL}/public/upload/posts/${postData.pictures}`}
+                    />
+                    : null
+                }
                 <Card.Body>{postData.description}</Card.Body>
             </Card>
                 {user && user.id === postData.users_id ?

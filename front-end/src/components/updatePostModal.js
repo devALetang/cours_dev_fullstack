@@ -5,18 +5,18 @@ import { updatePost } from '../api/post';
 const UpdatePostModal = ({ setPosts, posts, handleClose, postToUpdate, show }) => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescription, setNewDescription] = useState('');
+    const [image, setImage] = useState(null);
 
     const handleUpdatePost = async (event) => {
         event.preventDefault();
+        let formData = new FormData();
+  
+        formData.append('title', newTitle);
+        formData.append('description', newDescription);
+        formData.append('image', image)
     
-        const data = {
-          "title": newTitle,
-          "description": newDescription
-        }
-    
-        await updatePost(data, postToUpdate.id)
+        await updatePost(formData, postToUpdate.id)
         .then((newPost) => {   
-
             const index = posts.findIndex(post => post.id === postToUpdate.id)
             const updatedPosts = [...posts.slice(0, index), newPost, ...posts.slice(index + 1)]
 
@@ -24,6 +24,7 @@ const UpdatePostModal = ({ setPosts, posts, handleClose, postToUpdate, show }) =
             handleClose();
             setNewDescription('');
             setNewTitle('');
+            setImage(null);
         })
         .catch((e) => {
           console.log(e);
@@ -67,6 +68,15 @@ const UpdatePostModal = ({ setPosts, posts, handleClose, postToUpdate, show }) =
                         placeholder={postToUpdate.description}
                         value={newDescription}
                     />
+                    </Form.Group>
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Label>Image</Form.Label>
+                        <Form.Control
+                            type="file"
+                            onChange={(e) => {
+                                setImage(e.target.files[0])
+                            }}
+                        />
                     </Form.Group>
                 </Form>
             </Modal.Body>
