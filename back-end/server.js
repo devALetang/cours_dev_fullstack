@@ -3,6 +3,7 @@ const server = express();
 require('dotenv').config({ path: './config/.env' });
 const routesUsers = require('./routes/usersRoutes');
 const routesPosts = require('./routes/postsRoutes');
+const routesComments = require('./routes/commentsRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { default: crud } = require('express-crud-router');
@@ -19,6 +20,7 @@ server.use('/public', express.static(path.join(__dirname, '/public')))
 // routes
 server.use('/user', routesUsers);
 server.use('/post', routesPosts);
+server.use('/comment', routesComments);
 
 server.use(
   crud('/admin/users', {
